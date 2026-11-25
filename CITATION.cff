@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+message: "If you use this work, please cite it as below. 引用本作品時請使用以下資訊。"
+type: software
+title: "Nan-ao Knowledge Graph (南澳知識圖譜)"
+authors:
+  - name: "Transdisciplinary Design Innovation Shop (TDIS), National Yang Ming Chiao Tung University"
+    email: tdis@nycu.edu.tw
+    website: "https://tdis.nycu.edu.tw/"
+  - family-names: Tseng
+    given-names: Sheng-Kai
+    alias: "曾聖凱"
+    affiliation: "Transdisciplinary Design Innovation Shop (TDIS), National Yang Ming Chiao Tung University"
+  # 其他參與人員依下列格式加入 / Add other contributors below:
+  # - family-names: ""
+  #   given-names: ""
+  #   affiliation: ""
+repository-code: "https://github.com/tdis-design/nanao"
+url: "https://tdis-design.github.io/nanao/"
+license:
+  - MIT
+  - CC-BY-NC-4.0
+date-released: "2026-11-25"
+keywords:
+  - knowledge graph
+  - digital humanities
+  - cultural landscape
+  - Taiwan
