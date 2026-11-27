@@ -93,7 +93,9 @@ function formatSummary(s) {
 
 // ===== GitHub：內容有變動才更新 data/graph.json =====
 function pushGraphToGitHub(resultObj, summary) {
-  const token = PropertiesService.getScriptProperties().getProperty('GITHUB_TOKEN');
+  // 去掉複製貼上時多出的空白、換行或零寬字元，否則 UrlFetchApp 會回「無法開啟網址」
+  const token = (PropertiesService.getScriptProperties().getProperty('GITHUB_TOKEN') || '')
+    .replace(/[\s​-‍﻿]/g, '');
   if (!token) {
     throw new Error('找不到 GITHUB_TOKEN。請至「專案設定 → 指令碼屬性」新增，步驟見 TOKEN_設定說明.md。');
   }
