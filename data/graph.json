@@ -3556,18 +3556,6 @@
       "col": "#83C5BE",
       "sourceSheet": "nodes_ALL",
       "sourceRow": 203
-    },
-    {
-      "id": "test1127",
-      "group": "人物",
-      "info": "test1127test1127test1127test1127",
-      "start_year": null,
-      "end_year": null,
-      "lon": null,
-      "lat": null,
-      "col": "#E63946",
-      "sourceSheet": "nodes_ALL",
-      "sourceRow": 296
     }
   ],
   "links": [
