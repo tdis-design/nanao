@@ -52,3 +52,8 @@ data/source_backup_*.xlsx
 
 # Git 倉庫還原檔（不需進版控）
 _git_recovery/
+
+# 使用說明：私人連結與產生的 PDF 不進版控（repo 是公開的）
+docs/manual_src/links.private.html
+docs/manual_src/out/
+docs/manual_src/_build.html

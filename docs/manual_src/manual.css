@@ -1,0 +1,277 @@
+/* 竹東知識圖譜：給文史工作人員的操作手冊（列印成 A4 PDF） */
+@page {
+  size: A4;
+  margin: 18mm 17mm 18mm 17mm;
+  @bottom-center {
+    content: counter(page) " / " counter(pages);
+    font-family: "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+    font-size: 8.5pt;
+    color: #888;
+  }
+}
+@page :first {
+  @bottom-center { content: none; }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+  font-size: 10.8pt;
+  line-height: 1.75;
+  color: #222;
+  margin: 0;
+}
+
+/* ===== 封面 ===== */
+.cover {
+  height: 255mm;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  page-break-after: always;
+}
+.cover .band {
+  background: #2f4f3a;
+  color: #fff;
+  padding: 26mm 14mm 18mm;
+  border-radius: 4mm;
+}
+.cover .kicker { font-size: 11pt; letter-spacing: 0.2em; opacity: 0.85; }
+.cover h1 { font-size: 27pt; line-height: 1.3; margin: 6mm 0 4mm; font-weight: 700; }
+.cover .sub { font-size: 12pt; opacity: 0.92; }
+.cover .who {
+  margin: 0 2mm;
+  font-size: 11pt;
+}
+.cover .who table { width: 100%; }
+.cover .meta { font-size: 9.5pt; color: #666; margin: 0 2mm; }
+
+/* ===== 標題 ===== */
+h2 {
+  font-size: 15pt;
+  color: #2f4f3a;
+  border-bottom: 2px solid #2f4f3a;
+  padding-bottom: 1.5mm;
+  margin: 9mm 0 4mm;
+  page-break-after: avoid;
+  break-after: avoid;
+}
+h2 .no {
+  display: inline-block;
+  background: #2f4f3a;
+  color: #fff;
+  border-radius: 1.5mm;
+  padding: 0 2.5mm;
+  margin-right: 2.5mm;
+  font-size: 12pt;
+}
+h3 {
+  font-size: 12pt;
+  margin: 6mm 0 2mm;
+  color: #333;
+  page-break-after: avoid;
+  break-after: avoid;
+}
+/* 段落自然接續，不強制換頁（表格與提示框本身不會被切開） */
+.newpage { }
+
+p { margin: 0 0 3mm; }
+ul, ol { margin: 0 0 3mm; padding-left: 6mm; }
+li { margin-bottom: 1mm; }
+b, strong { color: #111; }
+
+/* ===== 表格 ===== */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 2mm 0 4mm;
+  font-size: 10pt;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+th, td {
+  border: 1px solid #c9cfc9;
+  padding: 1.6mm 2.4mm;
+  vertical-align: top;
+  text-align: left;
+}
+th { background: #e8eee8; font-weight: 700; }
+td.c, th.c { text-align: center; }
+.nowrap { white-space: nowrap; }
+
+/* ===== 提示框 ===== */
+.box {
+  border-radius: 2mm;
+  padding: 3mm 4mm;
+  margin: 3mm 0 4mm;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+.box .t { font-weight: 700; display: block; margin-bottom: 1mm; }
+.box p:last-child, .box ul:last-child, .box ol:last-child { margin-bottom: 0; }
+.warn { background: #fff4e5; border-left: 4px solid #e08a00; }
+.tip  { background: #eaf4ec; border-left: 4px solid #3f8a54; }
+.stop { background: #fdecec; border-left: 4px solid #c62828; }
+
+/* ===== 流程 ===== */
+.flow {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  margin: 3mm 0 5mm;
+  page-break-inside: avoid;
+}
+.flow .step {
+  flex: 1;
+  background: #f3f6f3;
+  border: 1px solid #c9d5c9;
+  border-radius: 2mm;
+  padding: 2.5mm 2mm;
+  text-align: center;
+  font-size: 9.5pt;
+  line-height: 1.5;
+}
+.flow .step .n {
+  display: block;
+  font-weight: 700;
+  color: #2f4f3a;
+  font-size: 10.5pt;
+  margin-bottom: 0.8mm;
+}
+.flow .arrow {
+  width: 6mm;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #2f4f3a;
+  font-weight: 700;
+}
+
+/* ===== 模擬畫面：選單 ===== */
+.menu-mock {
+  display: inline-block;
+  border: 1px solid #bbb;
+  border-radius: 1.5mm;
+  font-size: 9.5pt;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+  margin: 1mm 0 4mm;
+  background: #fff;
+  min-width: 70mm;
+}
+.menu-mock .bar {
+  background: #f1f3f4;
+  padding: 1.2mm 3mm;
+  border-bottom: 1px solid #ddd;
+  color: #444;
+}
+.menu-mock .bar b { background: #dfe7df; padding: 0 1.5mm; border-radius: 1mm; }
+.menu-mock .item { padding: 1.4mm 4mm; border-bottom: 1px solid #f0f0f0; }
+.menu-mock .item:last-child { border-bottom: none; }
+
+/* ===== 模擬畫面：試算表 ===== */
+.sheet {
+  border-collapse: collapse;
+  font-size: 9pt;
+  margin: 2mm 0 1mm;
+}
+.sheet th {
+  background: #f1f3f4;
+  color: #666;
+  font-weight: 400;
+  text-align: center;
+  padding: 0.8mm 2mm;
+}
+.sheet td { padding: 0.9mm 2mm; border: 1px solid #d5d5d5; }
+.sheet td.rn { background: #f1f3f4; color: #666; text-align: center; width: 7mm; }
+.sheet tr.hd td { font-weight: 700; background: #fafafa; }
+.sheet .red { background: #ffcdd2; }
+.sheet .yellow { background: #fff59d; }
+.sheet .orange { background: #ffe0b2; }
+.tabs {
+  font-size: 8.5pt;
+  color: #555;
+  margin: 0 0 4mm;
+}
+.tabs span {
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-top: none;
+  padding: 0.4mm 2.5mm;
+  margin-right: 1mm;
+  background: #f7f7f7;
+}
+.tabs span.on { background: #fff; font-weight: 700; color: #2f4f3a; }
+.caption { font-size: 8.8pt; color: #666; margin: -2mm 0 4mm; }
+
+/* 顏色小方塊 */
+.sw {
+  display: inline-block;
+  width: 9mm;
+  height: 4mm;
+  border: 1px solid #999;
+  vertical-align: middle;
+  margin-right: 1.5mm;
+}
+
+/* 資料夾樹 */
+.tree {
+  font-family: "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+  background: #f7f7f2;
+  border: 1px solid #ddd;
+  border-radius: 2mm;
+  padding: 3mm 5mm;
+  font-size: 9.8pt;
+  line-height: 1.8;
+  margin: 2mm 0 4mm;
+  white-space: pre;
+  page-break-inside: avoid;
+}
+
+/* 檢查清單 */
+.check { list-style: none; padding-left: 0; }
+.check li::before { content: "☐  "; color: #2f4f3a; font-weight: 700; }
+
+code, .k {
+  font-family: Consolas, "Noto Sans TC", monospace;
+  background: #f1f3f1;
+  border: 1px solid #dde3dd;
+  border-radius: 1mm;
+  padding: 0 1.2mm;
+  font-size: 0.92em;
+}
+.btn {
+  display: inline-block;
+  background: #e8f0fe;
+  border: 1px solid #a8c1f0;
+  border-radius: 1mm;
+  padding: 0 1.8mm;
+  font-size: 0.95em;
+  white-space: nowrap;
+}
+
+/* 整段不切開（檢查清單、配對規則） */
+.keep { page-break-inside: avoid; break-inside: avoid; }
+
+/* 大段落分隔（第一部分、第二部分） */
+.part {
+  page-break-before: always;
+  break-before: page;
+  background: #2f4f3a;
+  color: #fff;
+  border-radius: 2mm;
+  padding: 5mm 6mm;
+  margin: 0 0 4mm;
+}
+.part .pk { font-size: 10pt; letter-spacing: 0.15em; opacity: 0.85; }
+.part .pt { font-size: 18pt; font-weight: 700; margin-top: 1mm; }
+.part .pd { font-size: 10pt; opacity: 0.9; margin-top: 1mm; }
+
+/* 目錄 */
+.toc { columns: 2; column-gap: 8mm; font-size: 10pt; margin: 2mm 0 4mm; padding-left: 5mm; }
+.toc li { break-inside: avoid; margin-bottom: 0.6mm; }
+
+/* 連結表：長網址可換行 */
+td.url { word-break: break-all; font-size: 8.8pt; }
+.done { color: #2f7a3e; font-weight: 700; }
+.todo { color: #b45309; font-weight: 700; }

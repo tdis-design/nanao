@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>南澳知識圖譜｜使用說明</title>
+<link rel="stylesheet" href="manual.css">
+</head>
+<body>
+<!--
+  本檔是「00_南澳知識圖譜_使用說明」PDF 的原始檔，用 build_manual.py 產生 PDF。
+  雲端硬碟的連結不放在公開的 GitHub：寫在同資料夾的 links.private.html（不進版控），
+  產生 PDF 時會取代下面的 PRIVATE_LINKS 標記。
+-->
+
+<!-- ===== 封面 ===== -->
+<section class="cover">
+  <div class="band">
+    <div class="kicker">南澳知識圖譜</div>
+    <h1>使用說明<br><span style="font-size:16pt;font-weight:400">從這裡開始</span></h1>
+    <div class="sub">在 graphdata 試算表編輯人物、部落、地點、組織、活動與關係，<br>按選單按鈕就能更新網站，不需要懂程式</div>
+  </div>
+  <div class="who">
+    <table>
+      <tr><th style="width:32mm">適用對象</th><td>維護內容的研究人員、文史工作人員</td></tr>
+      <tr><th>計畫主持人</th><td>曾聖凱（國立陽明交通大學 跨領域設計科學研究中心 TDIS）</td></tr>
+      <tr><th>目前管理者</th><td>（待填）</td></tr>
+      <tr><th>網站</th><td>https://tdis-design.github.io/nanao/</td></tr>
+      <tr><th>本說明放在</th><td>雲端硬碟「For Website」資料夾。本專案只有這一份使用說明，找不到東西時先看這份。</td></tr>
+    </table>
+  </div>
+  <div class="meta">最後更新：2026-11-28　｜　對應程式：Graph.gs（tdis-design/nanao）</div>
+</section>
+
+<h2 style="margin-top:0">目錄</h2>
+<ol class="toc">
+  <li>這是什麼</li>
+  <li>東西放在哪裡</li>
+  <li>連結總表</li>
+  <li>打開 graphdata 與選單</li>
+  <li>認識分頁</li>
+  <li>新增或修改節點</li>
+  <li>新增或修改連線</li>
+  <li>分類與顏色</li>
+  <li>檢查資料：看懂顏色標記</li>
+  <li>推送到網站</li>
+  <li>等待與確認</li>
+  <li>填寫規則</li>
+  <li>出問題怎麼辦</li>
+  <li>帳號與權限</li>
+  <li>交接待辦（管理者）</li>
+  <li>授權與引用</li>
+  <li>附錄：每次操作的檢查清單</li>
+</ol>
+
+<!-- ===== 1 ===== -->
+<h2><span class="no">1</span>這是什麼</h2>
+<p>南澳知識圖譜是一個網站，把宜蘭南澳 Klesan 群（泰雅族南澳群）相關的人物、部落、地點、組織、活動、物件與健康議題畫成一張關係圖。圖上每個圓點叫「<b>節點</b>」，每條線叫「<b>連線</b>」，代表兩個節點之間的關係。點一下圓點，會出現說明文字。</p>
+<p>網站上的文字都來自雲端硬碟裡的 <b>graphdata</b> 試算表。<b>改內容只要改試算表，不用碰程式，也不用找工程師。</b></p>
+<div class="flow">
+  <div class="step"><span class="n">① 編輯</span>在 nodes_ALL / link_ALL 填資料</div>
+  <div class="arrow">→</div>
+  <div class="step"><span class="n">② 檢查</span>圖譜工具 →<br>檢查資料（不推送）</div>
+  <div class="arrow">→</div>
+  <div class="step"><span class="n">③ 修正</span>處理紅色、黃色、橘色格子</div>
+  <div class="arrow">→</div>
+  <div class="step"><span class="n">④ 推送</span>圖譜工具 →<br>推送 graph.json 到網站</div>
+  <div class="arrow">→</div>
+  <div class="step"><span class="n">⑤ 等 5 分鐘</span>網站自動重新產生</div>
+</div>
+<div class="box tip">
+  <span class="t">名詞小辭典</span>
+  <ul>
+    <li><b>節點</b>：網站上的一個圓點，代表一個人、部落、地點、組織、活動或物件。</li>
+    <li><b>連線</b>：兩個節點之間的線，代表它們有關係（例如「人地關係」「活動/行動參與」）。</li>
+    <li><b>id</b>：節點的名字，也是它的身分證。連線靠它找到這個節點。</li>
+    <li><b>推送</b>：按選單按鈕，把試算表的內容送到網站的資料庫（GitHub）。</li>
+    <li><b>GitHub</b>：存放網站程式與資料的線上服務，每次修改都會留下紀錄。收到推送後會自動重新產生網站。</li>
+    <li><b>Apps Script</b>：附在試算表裡的小程式，提供「圖譜工具」選單。</li>
+    <li><b>Token（權杖）</b>：讓 Apps Script 能寫入 GitHub 的一串密碼，由管理者設定，一般使用者不用碰。</li>
+  </ul>
+</div>
+
+<!-- ===== 2 ===== -->
+<h2><span class="no">2</span>東西放在哪裡</h2>
+<table>
+  <tr><th style="width:42mm">地方</th><th>放什麼</th><th style="width:40mm">誰會動</th></tr>
+  <tr><td><b>Google 雲端硬碟</b><br>For Website 資料夾</td><td>graphdata 試算表。<b>內容的正本在這裡。</b></td><td>研究人員、文史工作人員</td></tr>
+  <tr><td><b>GitHub</b><br>tdis-design/nanao</td><td>網站程式，以及試算表推送過來的資料副本</td><td>工程師；按推送時自動寫入</td></tr>
+  <tr><td><b>GitHub Pages</b></td><td>公開的網站</td><td>自動產生，不用管</td></tr>
+</table>
+<div class="tree">國科會計畫總資料夾
+├─ 南澳知識圖譜　　　　　　　　　（舊版，只供查詢，網站不讀）
+├─ 南澳知識圖譜(網頁上架用)　　　（舊版，網站不讀）
+└─ For Website
+　　├─ 00_南澳知識圖譜_使用說明　（本說明）
+　　└─ graphdata　　　　　　　　 ← <b>只改這一份</b></div>
+<div class="box stop">
+  <span class="t">只改 graphdata</span>
+  <p>總資料夾裡的「南澳知識圖譜」「南澳知識圖譜(網頁上架用)」是舊版，網站不會讀它們，改了也不會出現在網站上。</p>
+</div>
+
+<!-- ===== 3 ===== -->
+<h2><span class="no">3</span>連結總表</h2>
+<!--PRIVATE_LINKS-->
+<h3>網站與 GitHub</h3>
+<table>
+  <tr><th style="width:40mm">名稱</th><th style="width:52mm">用途</th><th>連結</th></tr>
+  <tr><td>★ 網站</td><td>公開網站</td><td class="url">https://tdis-design.github.io/nanao/</td></tr>
+  <tr><td>GitHub 專案首頁</td><td>網站程式與說明</td><td class="url">https://github.com/tdis-design/nanao</td></tr>
+  <tr><td>資料更新紀錄</td><td>確認推送有沒有成功：最上面一筆的時間就是最後一次推送</td><td class="url">https://github.com/tdis-design/nanao/commits/main/data/graph.json</td></tr>
+  <tr><td>網站產生紀錄</td><td>推送後網站有沒有成功產生：綠色勾勾是成功，紅色叉叉是失敗</td><td class="url">https://github.com/tdis-design/nanao/actions</td></tr>
+  <tr><td>圖譜資料 graph.json</td><td>graphdata 推送後的結果</td><td class="url">https://github.com/tdis-design/nanao/blob/main/data/graph.json</td></tr>
+  <tr><td>專案說明（交接用）</td><td>給管理者與工程師</td><td class="url">https://github.com/tdis-design/nanao/blob/main/docs/專案說明.md</td></tr>
+  <tr><td>Token 設定說明</td><td>給管理者</td><td class="url">https://github.com/tdis-design/nanao/blob/main/apps_script/TOKEN_設定說明.md</td></tr>
+</table>
+
+<!-- ===== 4 ===== -->
+<h2><span class="no">4</span>打開 graphdata 與選單</h2>
+<ol>
+  <li>從第 3 節的連結（或雲端硬碟 For Website 資料夾）打開 <b>graphdata</b>。</li>
+  <li>等畫面載入完成（約 3～5 秒），上方選單列最右邊會出現 <b>圖譜工具</b>。</li>
+  <li>點開會看到兩個選項：</li>
+</ol>
+<div class="menu-mock">
+  <div class="bar">檔案　編輯　查看　插入　格式　資料　工具　擴充功能　說明　<b>圖譜工具</b></div>
+  <div class="item">檢查資料（不推送）　<span style="color:#888">← 只檢查，網站不會變</span></div>
+  <div class="item">推送 graph.json 到網站　<span style="color:#888">← 檢查並更新網站</span></div>
+</div>
+<div class="box warn">
+  <span class="t">沒看到「圖譜工具」？</span>
+  <p>按鍵盤 <span class="k">F5</span> 重新整理頁面，再等幾秒。第一次使用時，Google 會跳出「需要授權」：選自己的帳號 → 若出現「Google 尚未驗證這個應用程式」，點「進階」→「前往（不安全）」→「允許」。這是本專案自己的程式，可以放心允許。</p>
+</div>
+
+<!-- ===== 5 ===== -->
+<h2><span class="no">5</span>認識分頁</h2>
+<p>程式是看<b>分頁名稱的開頭</b>決定這一頁是什麼資料。英文大小寫都可以，但開頭一定要對。</p>
+<table>
+  <tr><th style="width:36mm">分頁</th><th>內容</th></tr>
+  <tr><td><code>nodes_ALL</code></td><td>所有節點</td></tr>
+  <tr><td><code>link_ALL</code></td><td>所有連線</td></tr>
+  <tr><td><code>nodes_color</code></td><td>節點分類與顏色</td></tr>
+  <tr><td><code>links_color</code></td><td>連線分類與顏色</td></tr>
+  <tr><td><code>missing_node</code></td><td>程式自動產生：連線用到、但還沒建立節點的名稱。<b>不用手動編輯</b>。</td></tr>
+  <tr><td><code>檢查報告</code></td><td>程式自動產生：每個橘色格子的原因。<b>不用手動編輯</b>。</td></tr>
+  <tr><td>其他名稱</td><td>程式不讀，例如「supbase後台資料」「文獻資料庫」。</td></tr>
+</table>
+<div class="box tip">
+  <span class="t">也可以照以前的習慣，每人或每個主題開自己的分頁</span>
+  <p>名稱開頭是 <code>nodes_</code>、<code>node_</code> 或 <code>link_</code> 的分頁都會被讀到，例如 <code>nodes_竺庭</code>、<code>link_竺庭</code>。不想讓某個分頁上網站，就在名稱前面加底線，例如 <code>_nodes_草稿</code>。</p>
+</div>
+<div class="box stop">
+  <span class="t">欄的順序不能換</span>
+  <p>程式是看「第幾欄」讀資料，不看標題文字。請不要在中間插入新欄、也不要調換欄的順序。想加自己的備註，請放在 J 欄以後，程式不讀。</p>
+</div>
+
+<!-- ===== 6 ===== -->
+<h2><span class="no">6</span>新增或修改節點（nodes_ALL）</h2>
+<table class="sheet">
+  <tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th></tr>
+  <tr class="hd"><td class="rn">1</td><td>id</td><td>node_Group</td><td>info</td><td>start_year</td><td>end_year</td><td>Lon</td><td>Lat</td></tr>
+  <tr><td class="rn">2</td><td>Bato Naui</td><td>人物</td><td>瑞岩部落青年，自思源埡口往東…</td><td></td><td></td><td></td><td></td></tr>
+  <tr><td class="rn">3</td><td>思源埡口</td><td>空間</td><td>泰雅族族群分散點…</td><td></td><td></td><td>121.4272</td><td>24.4903</td></tr>
+</table>
+<div class="tabs"><span class="on">nodes_ALL</span><span>link_ALL</span><span>nodes_color</span><span>links_color</span></div>
+<table>
+  <tr><th style="width:24mm">欄</th><th>填什麼</th><th style="width:22mm">可否留空</th></tr>
+  <tr><td>A　id</td><td>節點名稱，例如人名、部落名、地名。<b>網站上顯示的就是這個字。</b></td><td class="c">必填</td></tr>
+  <tr><td>B　node_Group</td><td>分類。要用 nodes_color 裡已有的名稱，例如：人物、政府機關、非營利組織、私人企業、大學、空間、事件、物件、產業、行動/活動、族群、健康議題、群體、在地學校。</td><td class="c">必填</td></tr>
+  <tr><td>C　info</td><td>說明文字，網站點開節點時顯示。</td><td class="c">可</td></tr>
+  <tr><td>D　start_year<br>E　end_year</td><td>開始、結束年份，填<b>西元年的阿拉伯數字</b>，例如 <code>1957</code>。結束年份還在持續的，可以填「現在」或「至今」。</td><td class="c">可</td></tr>
+  <tr><td>F　Lon<br>G　Lat</td><td>F 欄填經度（<b>121</b> 開頭），G 欄填緯度（<b>24</b> 開頭）。填反時程式會自動對調，並在檢查報告提醒。</td><td class="c">可</td></tr>
+  <tr><td>H　Image<br>I　相關連結</td><td>照片網址、相關網址。目前網站不顯示，可留空。</td><td class="c">可</td></tr>
+</table>
+<h3>id 的三個規則</h3>
+<ol>
+  <li><b>一旦用了就不要改。</b>連線是用 id 找節點，改了 id，連線那邊也要一起改。</li>
+  <li><b>一字不差。</b>全形半形括號、空格、同音異字，程式都會當成兩個不同的節點。例如「尤幹 (Yukan)」和「尤幹（Yukan）」是兩個節點。</li>
+  <li><b>同一個節點可以出現在不同的節點分頁</b>，但分類（B 欄）要一樣。說明（C 欄）會自動合併；分類和年份以<b>最前面那一頁</b>的為準。</li>
+</ol>
+
+<!-- ===== 7 ===== -->
+<h2><span class="no">7</span>新增或修改連線（link_ALL）</h2>
+<p>新的人物或地點，先在 nodes_ALL 加一列，再到 link_ALL 連線。</p>
+<table class="sheet">
+  <tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th></tr>
+  <tr class="hd"><td class="rn">1</td><td>Node_A</td><td>Node_B</td><td>label</td><td>info</td><td>Date</td></tr>
+  <tr><td class="rn">2</td><td>Bato Naui</td><td>思源埡口</td><td>人地關係</td><td>自瑞岩翻越思源埡口往東</td><td></td></tr>
+  <tr><td class="rn">3</td><td>Ryohen（流興）部落</td><td>金岳村</td><td>空間關係</td><td>自流興舊社遷出至金岳村</td><td>1957</td></tr>
+</table>
+<div class="tabs"><span>nodes_ALL</span><span class="on">link_ALL</span><span>nodes_color</span><span>links_color</span></div>
+<table>
+  <tr><th style="width:24mm">欄</th><th>填什麼</th><th style="width:22mm">可否留空</th></tr>
+  <tr><td>A　Node_A<br>B　Node_B</td><td>線的兩端，填<b>節點的 id</b>，要和 nodes_ALL 的 A 欄一字不差。</td><td class="c">兩個都必填</td></tr>
+  <tr><td>C　label</td><td>關係分類，要用 links_color 裡已有的名稱，例如：空間關係、人際關係、政策推動、產業關聯、活動/行動參與、人地關係、組織關聯、事地關係、物件關聯、社會關聯、健康議題關係。</td><td class="c">建議填</td></tr>
+  <tr><td>D　info</td><td>關係的說明，網站上顯示在線上。</td><td class="c">可</td></tr>
+  <tr><td>E　Date</td><td>這段關係發生的年份，填數字，例如 <code>1957</code>。</td><td class="c">可</td></tr>
+</table>
+<div class="box tip">
+  <span class="t">程式會幫你處理的小事</span>
+  <ul>
+    <li>關係分類裡多打的空白會自動忽略：「活動/行動 參與」等於「活動/行動參與」。</li>
+    <li>同一條連線重複填了，網站上只會出現一次。</li>
+    <li>連線用到、但還沒建立的節點，網站上仍會出現，但會是「自動增加」節點，沒有分類和說明。請盡量補進 nodes_ALL。</li>
+  </ul>
+</div>
+
+<!-- ===== 8 ===== -->
+<h2><span class="no">8</span>分類與顏色（nodes_color、links_color）</h2>
+<p>這兩頁列出所有可用的分類：A 欄是分類名稱，B 欄是色碼（例如 <code>#E63946</code>）。</p>
+<ul>
+  <li><b>要用新的分類</b>，先到 nodes_color（或 links_color）加一列並填色碼，再回節點或連線頁使用。沒有登記的分類，檢查時會標橘色提醒。</li>
+  <li><b>網站上的顏色與形狀</b>：網站會把節點分類歸成 8 大類來上色和排位置：人物、組織、地景與聚落、事件、物質文化、文獻、計畫與行動、其他。例如「政府機關」「大學」都歸「組織」，「空間」歸「地景與聚落」。</li>
+  <li><b>全新的分類名稱</b>（目前清單沒有的）請告訴工程師加上對應，否則網站會把它歸到「其他」。</li>
+</ul>
+
+<!-- ===== 9 ===== -->
+<h2><span class="no">9</span>檢查資料：看懂顏色標記</h2>
+<p>按 <span class="btn">圖譜工具 → 檢查資料（不推送）</span>，程式會掃過所有分頁、在有問題的格子塗色，並跳出一個摘要視窗。<b>這個按鈕不會改動網站</b>，可以放心多按幾次。</p>
+<table>
+  <tr><th style="width:30mm">顏色</th><th style="width:48mm">意思</th><th>怎麼處理</th></tr>
+  <tr>
+    <td><span class="sw" style="background:#ffcdd2"></span>淺紅<br><span style="font-size:9pt;color:#666">節點頁 B 欄</span></td>
+    <td><b>分類衝突</b>：同一個名稱在兩列填了不同分類。</td>
+    <td>把這個名稱的 B 欄統一成同一個分類。</td>
+  </tr>
+  <tr>
+    <td><span class="sw" style="background:#fff59d"></span>淺黃<br><span style="font-size:9pt;color:#666">連線頁 A、B 欄</span></td>
+    <td><b>缺漏節點</b>：連線用到的名稱，還沒有建立節點。</td>
+    <td>打開 <code>missing_node</code> 分頁看清單。打錯字就改連線頁；是新節點就補進 nodes_ALL。</td>
+  </tr>
+  <tr>
+    <td><span class="sw" style="background:#ffe0b2"></span>淺橘<br><span style="font-size:9pt;color:#666">節點 B、D～F 欄<br>連線 A～C、E 欄</span></td>
+    <td><b>其他提醒</b>：分類沒填或沒有登記、年份不是數字、經緯度填反或不在台灣、連線少一端。</td>
+    <td>打開 <code>檢查報告</code> 分頁，每一列寫著「哪一頁、哪一格、什麼問題」，照著改。<b>不改也可以推送。</b></td>
+  </tr>
+  <tr>
+    <td><span class="sw" style="background:#fff"></span>沒有顏色</td>
+    <td>正常</td>
+    <td>不用處理。</td>
+  </tr>
+</table>
+<h3>「檢查報告」長這樣</h3>
+<table class="sheet">
+  <tr><th></th><th>A</th><th>B</th><th>C</th></tr>
+  <tr class="hd"><td class="rn">1</td><td>分頁</td><td>儲存格</td><td>說明</td></tr>
+  <tr><td class="rn">2</td><td>nodes_ALL</td><td>F84</td><td>經緯度疑似填反（已自動對調輸出），請把 F 欄改成經度 121.x、G 欄改成緯度 24.x</td></tr>
+  <tr><td class="rn">3</td><td>nodes_ALL</td><td>E259</td><td>年份不是數字：現今</td></tr>
+</table>
+<p class="caption">（取自 2026-11-27 的實際報告。「現今」請改成「現在」或「至今」。）</p>
+<h3>摘要視窗的數字</h3>
+<table>
+  <tr><th style="width:56mm">視窗文字</th><th>意思</th></tr>
+  <tr><td>節點：○○，連線：○○</td><td>這次會送上網站的數量。和上次差太多時，先檢查是不是有分頁被改名或刪掉。</td></tr>
+  <tr><td>缺漏節點：○○</td><td>淺黃格的名稱數量，清單在 missing_node。</td></tr>
+  <tr><td>分類衝突：○○ 處</td><td>淺紅格數量。</td></tr>
+  <tr><td>其他提醒：○○ 項</td><td>淺橘格數量，原因在「檢查報告」。</td></tr>
+  <tr><td>重複連線（只保留一條）：○○ 條</td><td>完全相同、被合併掉的連線數量。</td></tr>
+</table>
+
+<!-- ===== 10 ===== -->
+<h2><span class="no">10</span>推送到網站</h2>
+<ol>
+  <li>確認「檢查資料」沒有淺紅、淺黃（或你確定可以先上線）。</li>
+  <li>按 <span class="btn">圖譜工具 → 推送 graph.json 到網站</span>。</li>
+  <li>右下角出現「同步中，請稍候…」，約 10～30 秒後跳出結果視窗。</li>
+  <li>看到「推送成功」後，照第 11 節等待與確認。</li>
+</ol>
+<table>
+  <tr><th style="width:62mm">視窗訊息</th><th>意思</th><th style="width:48mm">怎麼做</th></tr>
+  <tr><td><b>同步完成</b><br>推送成功（HTTP 200 或 201）</td><td>已送到網站資料庫。</td><td>等 5 分鐘再看網站。</td></tr>
+  <tr><td><b>同步完成</b><br>資料無變動，跳過推送</td><td>內容和網站上的一模一樣。</td><td>正常，不用處理。</td></tr>
+  <tr><td><b>同步失敗</b><br>找不到 GITHUB_TOKEN</td><td>試算表的金鑰沒有設定。</td><td>聯絡管理者。</td></tr>
+  <tr><td><b>同步失敗</b><br>GitHub 回應 HTTP 401 / 403 / 404</td><td>金鑰失效或權限不足。</td><td>截圖給管理者。</td></tr>
+  <tr><td><b>同步失敗</b><br>GitHub 回應 HTTP 409</td><td>剛好有別人同時在推送。</td><td>等一分鐘，再按一次推送。</td></tr>
+  <tr><td>其他訊息</td><td>—</td><td>截圖給管理者。</td></tr>
+</table>
+
+<!-- ===== 11 ===== -->
+<h2><span class="no">11</span>等待與確認</h2>
+<p>推送成功後，GitHub 會自動重新產生網站，大約要 3～5 分鐘。這段時間網站還是舊的，屬於正常現象。</p>
+<ol>
+  <li>等 5 分鐘。</li>
+  <li>打開網站，按 <span class="k">Ctrl</span> + <span class="k">Shift</span> + <span class="k">R</span>（Mac 是 <span class="k">⌘</span> + <span class="k">Shift</span> + <span class="k">R</span>）強制重新整理。</li>
+  <li>找到剛改的節點，確認名稱、說明、連線都正確。</li>
+  <li>還是舊的：<b>不要一直重複按推送</b>。等了 15 分鐘還是舊的，開第 3 節的「網站產生紀錄」：最上面一筆如果是紅色叉叉，截圖給管理者。</li>
+</ol>
+<div class="box tip">
+  <span class="t">改資料不用找工程師</span>
+  <p>只要是節點、連線、分類的修改，按推送、等 5 分鐘就好。只有要改網站的外觀或功能，或要新增全新的分類對應，才需要工程師。</p>
+</div>
+
+<!-- ===== 12 ===== -->
+<h2><span class="no">12</span>填寫規則</h2>
+<ul>
+  <li><b>同一個人、地點、組織只能有一種寫法。</b>全形半形括號、空格、同音異字，都會變成兩個不同的節點。</li>
+  <li>名稱一旦用了就不要隨便改；改了的話，連線那邊也要一起改。</li>
+  <li>新的分類要在 nodes_color 或 links_color 加一列並填色碼；全新的分類名稱請告訴工程師加上對應。</li>
+  <li>年份只填數字，例如 1957。不知道就留空；結束年份可以填「現在」或「至今」。</li>
+  <li>經緯度：F 欄填經度（121 開頭），G 欄填緯度（24 開頭）。</li>
+  <li>試算表的欄位順序不能換；自己的註記寫在 J 欄以後。</li>
+  <li>同一條連線重複填了，網站上只會出現一次。</li>
+</ul>
+
+<!-- ===== 13 ===== -->
+<h2><span class="no">13</span>出問題怎麼辦</h2>
+<table>
+  <tr><th style="width:58mm">狀況</th><th>原因與處理</th></tr>
+  <tr><td>選單「圖譜工具」不見了</td><td>按 F5 重新整理試算表，等幾秒。</td></tr>
+  <tr><td>第一次按選單要求授權</td><td>選自己的帳號 →「進階」→「前往（不安全）」→「允許」。</td></tr>
+  <tr><td>按了沒反應</td><td>看右下角的小提示和跳出視窗。</td></tr>
+  <tr><td>推送成功但網站還是舊的</td><td>等 5 分鐘，按 Ctrl + Shift + R。不要重複推送。</td></tr>
+  <tr><td>等了 15 分鐘還是舊的</td><td>開第 3 節的「網站產生紀錄」，最上面一筆如果是紅色叉叉，截圖給管理者。</td></tr>
+  <tr><td>不確定有沒有推送成功</td><td>開第 3 節的「資料更新紀錄」，看最上面一筆的時間。</td></tr>
+  <tr><td>找不到 GITHUB_TOKEN、HTTP 401 / 403 / 404</td><td>截圖給管理者。</td></tr>
+  <tr><td>HTTP 409</td><td>剛好有別人同時推送，再按一次推送。</td></tr>
+  <tr><td>某個節點在網站上沒有連線</td><td>連線兩端的名稱和節點名稱不完全一樣，檢查括號、空格、異體字。</td></tr>
+  <tr><td>網站上多了一個「自動增加」節點</td><td>連線用到的名稱沒有建立在 nodes_ALL，或打錯字。看 missing_node。</td></tr>
+  <tr><td>新分類在網站上歸到「其他」</td><td>請工程師把這個分類加進對應表。</td></tr>
+  <tr><td>改了舊版試算表，網站沒變</td><td>網站只讀 For Website 裡的 graphdata，請改 graphdata。</td></tr>
+  <tr><td>不小心刪錯資料</td><td>試算表「檔案 → 版本記錄 → 查看版本記錄」可以回到之前的版本，還原後再推送一次。</td></tr>
+  <tr><td>其他狀況</td><td>截圖給管理者。</td></tr>
+</table>
+
+<!-- ===== 14 ===== -->
+<h2><span class="no">14</span>帳號與權限</h2>
+<table>
+  <tr><th style="width:52mm">東西</th><th style="width:58mm">帳號</th><th>說明</th></tr>
+  <tr><td>GitHub 專案與網站</td><td>tdis-design（實驗室帳號）</td><td>密碼由實驗室保管</td></tr>
+  <tr><td>graphdata</td><td>實驗室 Google 帳號（tdis@arch.nycu.edu.tw）</td><td>2026-11-27 已轉移</td></tr>
+  <tr><td>For Website 資料夾</td><td>前任管理者的個人帳號</td><td>建議轉給實驗室 Google 帳號</td></tr>
+  <tr><td>國科會計畫總資料夾</td><td>曾聖凱老師</td><td></td></tr>
+  <tr><td>Apps Script 的 Token</td><td>由 tdis-design 產生</td><td>只能寫入 nanao 專案；到期前要換新</td></tr>
+</table>
+<p>要編輯 graphdata，請管理者把你加為「編輯者」。graphdata 建議只開給編輯者，不要開「知道連結的任何人可以編輯」。</p>
+
+<!-- ===== 15 ===== -->
+<h2><span class="no">15</span>交接待辦（管理者處理）</h2>
+<table>
+  <tr><th style="width:16mm" class="c">狀態</th><th>項目</th></tr>
+  <tr><td class="c done">☑</td><td>GitHub 專案推送到 tdis-design/nanao。（2026-11-25）</td></tr>
+  <tr><td class="c done">☑</td><td>GitHub Pages 改用 GitHub Actions 部署，網站上線。（2026-11-27）</td></tr>
+  <tr><td class="c done">☑</td><td>graphdata 換成新版 Apps Script、設定 Token，檢查後推送成功。（2026-11-27：294 個節點、375 條連線）</td></tr>
+  <tr><td class="c done">☑</td><td>graphdata 轉給實驗室 Google 帳號。（2026-11-27）</td></tr>
+  <tr><td class="c done">☑</td><td>使用說明整併成本份 PDF，原本的 <code>網址.txt</code> 已併入本說明。（2026-11-28）</td></tr>
+  <tr><td class="c todo">☐</td><td>刪除 graphdata 裡的「supbase後台資料」分頁（那是記憶地圖系統的資料，程式不讀）。</td></tr>
+  <tr><td class="c todo">☐</td><td>兩份舊試算表改名，前面加上 <code>_archive_</code>。</td></tr>
+  <tr><td class="c todo">☐</td><td>通知團隊之後只改 graphdata。</td></tr>
+  <tr><td class="c todo">☐</td><td>For Website 資料夾轉給實驗室 Google 帳號；填上封面的「目前管理者」。</td></tr>
+  <tr><td class="c todo">☐</td><td>依檢查報告修正 nodes_ALL 約 20 列填反的經緯度，以及「現今」改成「現在」。</td></tr>
+</table>
+<p>更新本說明：原始檔在 GitHub 的 <code>docs/manual_src/</code>，改完後依該資料夾的說明重新產生 PDF，取代雲端硬碟上的這一份。</p>
+
+<!-- ===== 16 ===== -->
+<h2><span class="no">16</span>授權與引用</h2>
+<ul>
+  <li>文字、資料、圖片：創用 CC 姓名標示－非商業性 4.0（CC BY-NC 4.0）。標明出處、不做商業用途，就可以分享與改作。</li>
+  <li>個人、家族、社區提供的照片與文件，著作權屬原提供者，再利用前要先取得同意。</li>
+  <li>內容記錄 Klesan 群與在地社群的知識；對外合作、出版、展覽前，請先與計畫主持人確認。</li>
+  <li>程式碼：MIT 授權。</li>
+  <li>引用方式：曾聖凱、國立陽明交通大學跨領域設計科學研究中心（TDIS）（2026）。《南澳知識圖譜》［網站］。https://tdis-design.github.io/nanao/</li>
+</ul>
+<p>聯絡：國立陽明交通大學 跨領域設計科學研究中心（TDIS）　tdis@nycu.edu.tw</p>
+
+<!-- ===== 附錄 ===== -->
+<div class="keep">
+<h2><span class="no">附</span>每次操作的檢查清單</h2>
+<ul class="check">
+  <li>改的是 For Website 裡的 graphdata，不是舊版試算表。</li>
+  <li>新節點的名稱沒有錯字、括號全形半形一致、沒有多餘空格。</li>
+  <li>B 欄分類是 nodes_color 已有的名稱；新分類已先登記。</li>
+  <li>年份只填數字（或「現在」「至今」）；經緯度 F 欄 121、G 欄 24。</li>
+  <li>按「檢查資料（不推送）」，淺紅、淺黃都處理了；摘要的節點、連線數量合理。</li>
+  <li>按「推送 graph.json 到網站」，看到「推送成功」。</li>
+  <li>等 5 分鐘，Ctrl + Shift + R 重新整理網站確認。</li>
+</ul>
+</div>
+
+</body>
+</html>
